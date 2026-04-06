@@ -78,12 +78,12 @@
     box-shadow: var(--shadow-card);
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   }
 
   .card-3d:hover {
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-4px);
+    transform: translateY(-6px);
   }
 
   .gradient-text {
@@ -106,6 +106,120 @@
     backdrop-filter: blur(20px);
     border: 1px solid hsl(var(--border) / 0.5);
     box-shadow: var(--shadow-soft);
+  }
+
+  /* Premium button effects */
+  .btn-premium {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .btn-premium::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 30%, hsl(0 0% 100% / 0.15) 50%, transparent 70%);
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+  }
+
+  .btn-premium:hover::after {
+    transform: translateX(100%);
+  }
+
+  .btn-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -6px hsl(var(--primary) / 0.4);
+  }
+
+  .btn-premium:active {
+    transform: translateY(0) scale(0.98);
+    transition-duration: 0.1s;
+  }
+
+  /* Link hover underline animation */
+  .link-underline {
+    position: relative;
+    display: inline-block;
+  }
+
+  .link-underline::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    background: hsl(var(--primary));
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  /* Image zoom with parallax */
+  .img-reveal {
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .img-reveal img {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .img-reveal:hover img {
+    transform: scale(1.08);
+  }
+
+  /* Ripple effect for buttons */
+  .ripple {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ripple::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: hsl(0 0% 100% / 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease, opacity 0.6s ease;
+    opacity: 0;
+  }
+
+  .ripple:active::before {
+    width: 300px;
+    height: 300px;
+    opacity: 1;
+    transition: width 0s, height 0s, opacity 0s;
+  }
+
+  /* Icon hover animation */
+  .icon-hover {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .group:hover .icon-hover {
+    transform: translateY(-2px) rotate(-5deg);
+  }
+
+  /* Form input focus animation */
+  .input-animated {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  }
+
+  .input-animated:focus {
+    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+    transform: translateY(-1px);
   }
 }
 
@@ -180,4 +294,21 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+/* Disable heavy cursor effects on touch devices */
+@media (pointer: coarse) {
+  * {
+    cursor: auto !important;
+  }
+}
+
+/* Smooth page transition */
+.page-enter {
+  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
