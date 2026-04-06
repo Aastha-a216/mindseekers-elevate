@@ -105,7 +105,7 @@ const CourseDetail = () => {
                       <span className="text-3xl font-heading font-bold text-foreground">₹{course.price.toLocaleString()}</span>
                       <span className="text-lg text-muted-foreground line-through">₹{course.originalPrice.toLocaleString()}</span>
                     </div>
-                    <span className="inline-block px-3 py-1 rounded-full bg-green-50 text-green-700 text-xs font-semibold">
+                    <span className="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-semibold">
                       Save ₹{(course.originalPrice - course.price).toLocaleString()}
                     </span>
                   </div>
