@@ -48,9 +48,9 @@ const Index = () => {
       {/* Hero Section */}
       <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
         {/* Floating decorative elements */}
-        <ParallaxSection speed={0.15} className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
-        <ParallaxSection speed={-0.1} className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" />
-        <ParallaxSection speed={0.2} className="absolute top-40 left-1/4 w-32 h-32 rounded-full bg-primary/3 blur-2xl" />
+        <ParallaxSection speed={0.15}><div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
+        <ParallaxSection speed={-0.1}><div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
+        <ParallaxSection speed={0.2}><div className="absolute top-40 left-1/4 w-32 h-32 rounded-full bg-primary/3 blur-2xl" /></ParallaxSection>
 
         <div className="container-tight px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
