@@ -1,0 +1,149 @@
+import { useState } from "react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import Layout from "@/components/Layout";
+import ScrollReveal from "@/components/ScrollReveal";
+import { useToast } from "@/hooks/use-toast";
+
+const Contact = () => {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({ name: "", phone: "", email: "", message: "" });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast({ title: "Message Sent!", description: "We'll get back to you shortly." });
+    setFormData({ name: "", phone: "", email: "", message: "" });
+  };
+
+  return (
+    <Layout>
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
+        <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
+              Contact Us
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-6">
+              Get In <span className="gradient-text">Touch</span>
+            </h1>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Have questions? We'd love to hear from you. Reach out and our team will respond promptly.
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="section-padding">
+        <div className="container-tight max-w-5xl">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            {/* Contact Info */}
+            <div className="lg:col-span-2 space-y-6">
+              <ScrollReveal>
+                <div className="card-3d p-6 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
+                    <Mail className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Email Us</h3>
+                    <a href="mailto:help@mindseekers.live" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      help@mindseekers.live
+                    </a>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={100}>
+                <div className="card-3d p-6 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
+                    <Phone className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Call Us</h3>
+                    <a href="tel:+918310803817" className="text-sm text-muted-foreground hover:text-primary transition-colors">
+                      +91 8310803817
+                    </a>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal delay={200}>
+                <div className="card-3d p-6 flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
+                    <MapPin className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Location</h3>
+                    <p className="text-sm text-muted-foreground">India</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+            </div>
+
+            {/* Contact Form */}
+            <div className="lg:col-span-3">
+              <ScrollReveal delay={100}>
+                <div className="card-3d p-6 sm:p-8">
+                  <h2 className="text-xl font-heading font-bold text-foreground mb-6">Send us a message</h2>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-sm font-medium text-foreground mb-1.5 block">Name</label>
+                        <Input
+                          placeholder="Your name"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          required
+                          className="rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <label className="text-sm font-medium text-foreground mb-1.5 block">Phone</label>
+                        <Input
+                          placeholder="Your phone number"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          required
+                          className="rounded-lg"
+                        />
+                      </div>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                      <Input
+                        type="email"
+                        placeholder="your@email.com"
+                        value={formData.email}
+                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        required
+                        className="rounded-lg"
+                      />
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-foreground mb-1.5 block">Message</label>
+                      <Textarea
+                        placeholder="How can we help you?"
+                        value={formData.message}
+                        onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                        required
+                        rows={5}
+                        className="rounded-lg resize-none"
+                      />
+                    </div>
+                    <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 font-medium shadow-sm">
+                      Send Message
+                      <Send className="w-4 h-4 ml-2" />
+                    </Button>
+                  </form>
+                </div>
+              </ScrollReveal>
+            </div>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
+};
+
+export default Contact;
