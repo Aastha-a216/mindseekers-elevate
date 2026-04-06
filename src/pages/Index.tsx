@@ -5,6 +5,10 @@ import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import TiltCard from "@/components/TiltCard";
+import TextReveal from "@/components/TextReveal";
+import ParallaxSection from "@/components/ParallaxSection";
+import MagneticButton from "@/components/MagneticButton";
 import { courses } from "@/data/courses";
 
 const partnerLogos = [
@@ -43,50 +47,55 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+        {/* Floating decorative elements */}
+        <ParallaxSection speed={0.15}><div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
+        <ParallaxSection speed={-0.1}><div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
+        <ParallaxSection speed={0.2}><div className="absolute top-40 left-1/4 w-32 h-32 rounded-full bg-primary/3 blur-2xl" /></ParallaxSection>
+
         <div className="container-tight px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <ScrollReveal>
+            <TextReveal>
               <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-6">
                 <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
                 Where Knowledge Meets Opportunity
               </span>
-            </ScrollReveal>
+            </TextReveal>
 
-            <ScrollReveal delay={100}>
+            <TextReveal delay={120}>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-heading font-bold text-foreground leading-[1.1] mb-6">
                 Build Your Future with{" "}
                 <span className="gradient-text">MindSeekers</span>
               </h1>
-            </ScrollReveal>
+            </TextReveal>
 
-            <ScrollReveal delay={200}>
+            <TextReveal delay={240}>
               <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed mb-8 max-w-2xl mx-auto">
                 Industry-recognized certifications, expert mentorship, and hands-on projects.
                 Join 60,000+ learners who've transformed their careers.
               </p>
-            </ScrollReveal>
+            </TextReveal>
 
-            <ScrollReveal delay={300}>
+            <TextReveal delay={360}>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="https://form.qfixonline.com/mind" target="_blank" rel="noopener noreferrer">
-                  <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12 text-base font-semibold shadow-lg">
-                    Enroll Now
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </Button>
-                </a>
-                <Link to="/courses">
-                  <Button variant="outline" size="lg" className="rounded-full px-8 h-12 text-base font-medium border-foreground/20 hover:bg-secondary">
-                    Explore Courses
-                  </Button>
-                </Link>
+                <MagneticButton>
+                  <a href="https://form.qfixonline.com/mind" target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="btn-premium ripple bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12 text-base font-semibold shadow-lg">
+                      Enroll Now
+                      <ArrowRight className="w-4 h-4 ml-2 icon-hover" />
+                    </Button>
+                  </a>
+                </MagneticButton>
+                <MagneticButton>
+                  <Link to="/courses">
+                    <Button variant="outline" size="lg" className="btn-premium rounded-full px-8 h-12 text-base font-medium border-foreground/20 hover:bg-secondary">
+                      Explore Courses
+                    </Button>
+                  </Link>
+                </MagneticButton>
               </div>
-            </ScrollReveal>
+            </TextReveal>
           </div>
         </div>
-
-        {/* Decorative shapes */}
-        <div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" />
-        <div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" />
       </section>
 
       {/* Stats Section */}
@@ -95,15 +104,17 @@ const Index = () => {
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
             {stats.map((stat, i) => (
               <ScrollReveal key={stat.label} delay={i * 100}>
-                <div className="text-center">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-4">
-                    <stat.icon className="w-6 h-6" />
+                <TiltCard intensity={5}>
+                  <div className="text-center p-4">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-4 icon-hover group">
+                      <stat.icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
+                    </div>
+                    <div className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-1">
+                      <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                    </div>
+                    <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
                   </div>
-                  <div className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-1">
-                    <AnimatedCounter end={stat.value} suffix={stat.suffix} />
-                  </div>
-                  <p className="text-sm text-muted-foreground font-medium">{stat.label}</p>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
@@ -118,7 +129,7 @@ const Index = () => {
               <img
                 src={logo}
                 alt="Partner"
-                className="h-10 sm:h-12 object-contain opacity-50 hover:opacity-100 transition-opacity grayscale hover:grayscale-0"
+                className="h-10 sm:h-12 object-contain opacity-50 hover:opacity-100 transition-all duration-500 grayscale hover:grayscale-0 hover:scale-110"
               />
             </div>
           ))}
@@ -137,59 +148,63 @@ const Index = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredCourses.map((course, i) => (
               <ScrollReveal key={course.id} delay={i * 100}>
-                <Link to={`/courses/${course.id}`} className="group block">
-                  <div className="card-3d overflow-hidden h-full">
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={course.image}
-                        alt={course.name}
-                        className="w-full h-44 object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute top-3 left-3">
-                        <span className="px-2.5 py-1 rounded-full bg-card/90 backdrop-blur-sm text-xs font-medium text-foreground">
-                          {course.duration}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="p-5">
-                      <p className="text-xs font-medium text-primary mb-2">{course.categoryLabel}</p>
-                      <h3 className="font-heading font-semibold text-foreground mb-2 leading-snug group-hover:text-primary transition-colors">
-                        {course.name}
-                      </h3>
-                      <div className="flex items-center gap-1 mb-3">
-                        {Array.from({ length: 5 }).map((_, j) => (
-                          <Star key={j} className={`w-3.5 h-3.5 ${j < course.rating ? "fill-primary text-primary" : "text-border"}`} />
-                        ))}
-                        <span className="text-xs text-muted-foreground ml-1">({course.rating}.0)</span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <span className="text-lg font-bold text-foreground">₹{course.price.toLocaleString()}</span>
-                          <span className="text-sm text-muted-foreground line-through">₹{course.originalPrice.toLocaleString()}</span>
+                <TiltCard intensity={6}>
+                  <Link to={`/courses/${course.id}`} className="group block" data-cursor="view">
+                    <div className="card-3d overflow-hidden h-full">
+                      <div className="img-reveal">
+                        <img
+                          src={course.image}
+                          alt={course.name}
+                          className="w-full h-44 object-cover"
+                        />
+                        <div className="absolute top-3 left-3">
+                          <span className="px-2.5 py-1 rounded-full bg-card/90 backdrop-blur-sm text-xs font-medium text-foreground">
+                            {course.duration}
+                          </span>
                         </div>
                       </div>
-                      <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border">
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <BookOpen className="w-3.5 h-3.5" /> {course.lessons} Lessons
-                        </span>
-                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                          <Users className="w-3.5 h-3.5" /> {course.students} Students
-                        </span>
+                      <div className="p-5">
+                        <p className="text-xs font-medium text-primary mb-2">{course.categoryLabel}</p>
+                        <h3 className="font-heading font-semibold text-foreground mb-2 leading-snug group-hover:text-primary transition-colors duration-300">
+                          {course.name}
+                        </h3>
+                        <div className="flex items-center gap-1 mb-3">
+                          {Array.from({ length: 5 }).map((_, j) => (
+                            <Star key={j} className={`w-3.5 h-3.5 ${j < course.rating ? "fill-primary text-primary" : "text-border"}`} />
+                          ))}
+                          <span className="text-xs text-muted-foreground ml-1">({course.rating}.0)</span>
+                        </div>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="text-lg font-bold text-foreground">₹{course.price.toLocaleString()}</span>
+                            <span className="text-sm text-muted-foreground line-through">₹{course.originalPrice.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border">
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <BookOpen className="w-3.5 h-3.5" /> {course.lessons} Lessons
+                          </span>
+                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Users className="w-3.5 h-3.5" /> {course.students} Students
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
+                  </Link>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
 
           <div className="text-center mt-10">
-            <Link to="/courses">
-              <Button variant="outline" className="rounded-full px-8 font-medium border-foreground/20 hover:bg-secondary">
-                Browse All Courses
-                <ArrowRight className="w-4 h-4 ml-2" />
-              </Button>
-            </Link>
+            <MagneticButton>
+              <Link to="/courses">
+                <Button variant="outline" className="btn-premium rounded-full px-8 font-medium border-foreground/20 hover:bg-secondary">
+                  Browse All Courses
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+              </Link>
+            </MagneticButton>
           </div>
         </div>
       </section>
@@ -209,12 +224,14 @@ const Index = () => {
               { label: "Industry Professionals", value: 20, suffix: "+" },
             ].map((item, i) => (
               <ScrollReveal key={item.label} delay={i * 100}>
-                <div className="card-3d p-8 text-center">
-                  <div className="text-4xl font-heading font-bold gradient-text mb-2">
-                    <AnimatedCounter end={item.value} suffix={item.suffix} />
+                <TiltCard intensity={5}>
+                  <div className="card-3d p-8 text-center">
+                    <div className="text-4xl font-heading font-bold gradient-text mb-2">
+                      <AnimatedCounter end={item.value} suffix={item.suffix} />
+                    </div>
+                    <p className="text-muted-foreground font-medium">{item.label}</p>
                   </div>
-                  <p className="text-muted-foreground font-medium">{item.label}</p>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
@@ -232,25 +249,27 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {testimonials.map((t, i) => (
               <ScrollReveal key={t.name} delay={i * 100}>
-                <div className="card-3d p-6 sm:p-8 h-full flex flex-col">
-                  <div className="flex items-center gap-1 mb-4">
-                    {Array.from({ length: 5 }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 fill-primary text-primary" />
-                    ))}
-                  </div>
-                  <p className="text-foreground/80 leading-relaxed mb-6 flex-1 italic">
-                    "{t.text}"
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-sm">
-                      {t.name.charAt(0)}
+                <TiltCard intensity={4}>
+                  <div className="card-3d p-6 sm:p-8 h-full flex flex-col">
+                    <div className="flex items-center gap-1 mb-4">
+                      {Array.from({ length: 5 }).map((_, j) => (
+                        <Star key={j} className="w-4 h-4 fill-primary text-primary" />
+                      ))}
                     </div>
-                    <div>
-                      <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
-                      <p className="text-xs text-muted-foreground">{t.role}</p>
+                    <p className="text-foreground/80 leading-relaxed mb-6 flex-1 italic">
+                      "{t.text}"
+                    </p>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-sm">
+                        {t.name.charAt(0)}
+                      </div>
+                      <div>
+                        <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
+                        <p className="text-xs text-muted-foreground">{t.role}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
@@ -260,27 +279,35 @@ const Index = () => {
       {/* CTA */}
       <section className="section-padding" style={{ background: "var(--gradient-hero)" }}>
         <div className="container-tight text-center">
-          <ScrollReveal>
+          <TextReveal>
             <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground mb-4">
               Smart. Sharp. <span className="gradient-text">Certified.</span>
             </h2>
+          </TextReveal>
+          <TextReveal delay={100}>
             <p className="text-muted-foreground text-lg mb-8 max-w-xl mx-auto">
               Start your journey today with MindSeekers and unlock your full potential.
             </p>
+          </TextReveal>
+          <TextReveal delay={200}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a href="https://form.qfixonline.com/mind" target="_blank" rel="noopener noreferrer">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12 text-base font-semibold shadow-lg">
-                  Get Started Now
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </a>
-              <Link to="/contact">
-                <Button variant="outline" size="lg" className="rounded-full px-8 h-12 text-base font-medium border-foreground/20 hover:bg-secondary">
-                  Contact Us
-                </Button>
-              </Link>
+              <MagneticButton>
+                <a href="https://form.qfixonline.com/mind" target="_blank" rel="noopener noreferrer">
+                  <Button size="lg" className="btn-premium ripple bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12 text-base font-semibold shadow-lg">
+                    Get Started Now
+                    <ArrowRight className="w-4 h-4 ml-2" />
+                  </Button>
+                </a>
+              </MagneticButton>
+              <MagneticButton>
+                <Link to="/contact">
+                  <Button variant="outline" size="lg" className="btn-premium rounded-full px-8 h-12 text-base font-medium border-foreground/20 hover:bg-secondary">
+                    Contact Us
+                  </Button>
+                </Link>
+              </MagneticButton>
             </div>
-          </ScrollReveal>
+          </TextReveal>
         </div>
       </section>
     </Layout>

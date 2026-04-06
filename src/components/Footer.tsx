@@ -32,7 +32,7 @@ const Footer = () => {
                 <Link
                   key={link.path}
                   to={link.path}
-                  className="block text-sm text-primary-foreground/60 hover:text-primary transition-colors"
+                  className="block text-sm text-primary-foreground/60 hover:text-primary transition-colors link-underline w-fit"
                 >
                   {link.label}
                 </Link>
@@ -56,7 +56,7 @@ const Footer = () => {
                 <Link
                   key={course}
                   to="/courses"
-                  className="block text-sm text-primary-foreground/60 hover:text-primary transition-colors"
+                  className="block text-sm text-primary-foreground/60 hover:text-primary transition-colors link-underline w-fit"
                 >
                   {course}
                 </Link>
@@ -71,16 +71,16 @@ const Footer = () => {
             <div className="space-y-4">
               <a
                 href="mailto:help@mindseekers.live"
-                className="flex items-center gap-3 text-sm text-primary-foreground/60 hover:text-primary transition-colors"
+                className="flex items-center gap-3 text-sm text-primary-foreground/60 hover:text-primary transition-colors group"
               >
-                <Mail className="w-4 h-4 flex-shrink-0" />
+                <Mail className="w-4 h-4 flex-shrink-0 icon-hover" />
                 help@mindseekers.live
               </a>
               <a
                 href="tel:+918310803817"
-                className="flex items-center gap-3 text-sm text-primary-foreground/60 hover:text-primary transition-colors"
+                className="flex items-center gap-3 text-sm text-primary-foreground/60 hover:text-primary transition-colors group"
               >
-                <Phone className="w-4 h-4 flex-shrink-0" />
+                <Phone className="w-4 h-4 flex-shrink-0 icon-hover" />
                 +91 8310803817
               </a>
               <div className="flex items-start gap-3 text-sm text-primary-foreground/60">
@@ -96,10 +96,10 @@ const Footer = () => {
             © {new Date().getFullYear()} MindSeekers Technologies. All rights reserved.
           </p>
           <div className="flex items-center gap-6">
-            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors link-underline">
               Privacy Policy
             </a>
-            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors">
+            <a href="#" className="text-xs text-primary-foreground/40 hover:text-primary transition-colors link-underline">
               Terms of Service
             </a>
           </div>

@@ -3,6 +3,8 @@ import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import TiltCard from "@/components/TiltCard";
+import TextReveal from "@/components/TextReveal";
 
 const services = [
   { icon: BookOpen, title: "Professional Training", desc: "Industry-relevant curriculum designed by experts with hands-on learning approach." },
@@ -28,17 +30,21 @@ const About = () => {
       {/* Hero */}
       <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
         <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
-          <ScrollReveal>
+          <TextReveal>
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
               About Us
             </span>
+          </TextReveal>
+          <TextReveal delay={100}>
             <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-6">
               Empowering Learners, <span className="gradient-text">Building Futures</span>
             </h1>
+          </TextReveal>
+          <TextReveal delay={200}>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
               MindSeekers Technologies is a leading EdTech company committed to bridging the gap between education and industry through expert-led courses, hands-on projects, and career support.
             </p>
-          </ScrollReveal>
+          </TextReveal>
         </div>
       </section>
 
@@ -70,12 +76,14 @@ const About = () => {
                   { value: 30, suffix: "+", label: "Partner Companies" },
                   { value: 10, suffix: "+", label: "Universities" },
                 ].map((stat) => (
-                  <div key={stat.label} className="card-3d p-6 text-center">
-                    <div className="text-2xl font-heading font-bold gradient-text mb-1">
-                      <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                  <TiltCard key={stat.label} intensity={5}>
+                    <div className="card-3d p-6 text-center">
+                      <div className="text-2xl font-heading font-bold gradient-text mb-1">
+                        <AnimatedCounter end={stat.value} suffix={stat.suffix} />
+                      </div>
+                      <p className="text-xs text-muted-foreground font-medium">{stat.label}</p>
                     </div>
-                    <p className="text-xs text-muted-foreground font-medium">{stat.label}</p>
-                  </div>
+                  </TiltCard>
                 ))}
               </div>
             </ScrollReveal>
@@ -94,13 +102,15 @@ const About = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((s, i) => (
               <ScrollReveal key={s.title} delay={i * 100}>
-                <div className="card-3d p-6 text-center h-full">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-4">
-                    <s.icon className="w-6 h-6" />
+                <TiltCard intensity={6}>
+                  <div className="card-3d p-6 text-center h-full group">
+                    <div className="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-primary mb-4 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                      <s.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="font-heading font-semibold text-foreground mb-2">{s.title}</h3>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
                   </div>
-                  <h3 className="font-heading font-semibold text-foreground mb-2">{s.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{s.desc}</p>
-                </div>
+                </TiltCard>
               </ScrollReveal>
             ))}
           </div>
@@ -118,27 +128,29 @@ const About = () => {
                 center={false}
               />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {whyChooseUs.map((item) => (
-                  <div key={item} className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
-                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5" />
+                {whyChooseUs.map((item, i) => (
+                  <div key={item} className="flex items-start gap-3 p-3 rounded-lg hover:bg-accent transition-all duration-300 hover:translate-x-1 group">
+                    <CheckCircle className="w-5 h-5 text-primary flex-shrink-0 mt-0.5 transition-transform duration-300 group-hover:scale-110" />
                     <span className="text-sm text-foreground/80">{item}</span>
                   </div>
                 ))}
               </div>
             </ScrollReveal>
             <ScrollReveal delay={200}>
-              <div className="card-3d p-8 text-center">
-                <div className="aspect-video rounded-lg bg-secondary flex items-center justify-center mb-4 overflow-hidden">
-                  <iframe
-                    className="w-full h-full rounded-lg"
-                    src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                    title="MindSeekers Introduction"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
+              <TiltCard intensity={4}>
+                <div className="card-3d p-8 text-center">
+                  <div className="aspect-video rounded-lg bg-secondary flex items-center justify-center mb-4 overflow-hidden img-reveal">
+                    <iframe
+                      className="w-full h-full rounded-lg"
+                      src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                      title="MindSeekers Introduction"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <p className="text-sm text-muted-foreground">Watch our introduction video</p>
                 </div>
-                <p className="text-sm text-muted-foreground">Watch our introduction video</p>
-              </div>
+              </TiltCard>
             </ScrollReveal>
           </div>
         </div>
