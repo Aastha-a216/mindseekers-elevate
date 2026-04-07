@@ -4,7 +4,7 @@ import { useIsMobile } from "@/hooks/use-mobile";
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const followerRef = useRef<HTMLDivElement>(null);
-  const [cursorState, setCursorState] = useState<"default" | "hover" | "view" | "open">("default");
+  const [cursorState, setCursorState] = useState<"default" | "hover" | "view" | "open" | "explore" | "drag">("default");
   const [cursorText, setCursorText] = useState("");
   const isMobile = useIsMobile();
   const mouse = useRef({ x: 0, y: 0 });
@@ -24,8 +24,8 @@ const CustomCursor = () => {
     };
 
     const animate = () => {
-      followerPos.current.x += (mouse.current.x - followerPos.current.x) * 0.12;
-      followerPos.current.y += (mouse.current.y - followerPos.current.y) * 0.12;
+      followerPos.current.x += (mouse.current.x - followerPos.current.x) * 0.1;
+      followerPos.current.y += (mouse.current.y - followerPos.current.y) * 0.1;
       if (followerRef.current) {
         followerRef.current.style.transform = `translate(${followerPos.current.x}px, ${followerPos.current.y}px)`;
       }
@@ -34,7 +34,9 @@ const CustomCursor = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      const interactive = target.closest("a, button, [data-cursor='view'], [data-cursor='open'], .card-3d, .tilt-card");
+      const interactive = target.closest(
+        "a, button, [data-cursor], .card-3d, .tilt-card, .carousel-drag"
+      );
       if (!interactive) {
         setCursorState("default");
         setCursorText("");
@@ -47,6 +49,15 @@ const CustomCursor = () => {
       } else if (cursorAttr === "open") {
         setCursorState("open");
         setCursorText("Open");
+      } else if (cursorAttr === "explore") {
+        setCursorState("explore");
+        setCursorText("Explore");
+      } else if (cursorAttr === "drag") {
+        setCursorState("drag");
+        setCursorText("Drag");
+      } else if (interactive.matches(".carousel-drag")) {
+        setCursorState("drag");
+        setCursorText("Drag");
       } else if (interactive.matches(".card-3d, .tilt-card")) {
         setCursorState("view");
         setCursorText("View");
@@ -77,11 +88,11 @@ const CustomCursor = () => {
 
   if (isMobile) return null;
 
-  const isExpanded = cursorState === "view" || cursorState === "open";
+  const isExpanded = cursorState === "view" || cursorState === "open" || cursorState === "explore" || cursorState === "drag";
 
   return (
     <>
-      {/* Dot cursor */}
+      {/* Inner dot */}
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference"
@@ -89,11 +100,11 @@ const CustomCursor = () => {
       >
         <div
           className={`-translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground transition-all duration-300 ease-out ${
-            isExpanded ? "w-0 h-0 opacity-0" : cursorState === "hover" ? "w-2 h-2 opacity-100" : "w-2 h-2 opacity-100"
+            isExpanded ? "w-0 h-0 opacity-0" : "w-2 h-2 opacity-100"
           }`}
         />
       </div>
-      {/* Follower */}
+      {/* Outer follower ring */}
       <div
         ref={followerRef}
         className="fixed top-0 left-0 z-[9998] pointer-events-none"
@@ -102,14 +113,15 @@ const CustomCursor = () => {
         <div
           className={`-translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-500 ease-out flex items-center justify-center ${
             isExpanded
-              ? "w-20 h-20 bg-primary border-primary"
+              ? "w-20 h-20 bg-primary border-primary shadow-lg"
               : cursorState === "hover"
-              ? "w-12 h-12 border-primary/60 bg-primary/5"
+              ? "w-12 h-12 border-primary/60 bg-primary/5 backdrop-blur-sm"
               : "w-8 h-8 border-foreground/20 bg-transparent"
           }`}
+          style={isExpanded ? { boxShadow: "0 0 30px hsl(24 95% 53% / 0.3)" } : {}}
         >
           {isExpanded && (
-            <span className="text-primary-foreground text-xs font-semibold tracking-wide animate-fade-in">
+            <span className="text-primary-foreground text-xs font-semibold tracking-wider animate-fade-in">
               {cursorText}
             </span>
           )}
