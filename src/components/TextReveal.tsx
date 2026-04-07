@@ -18,7 +18,7 @@ const TextReveal = ({ children, className = "", delay = 0 }: TextRevealProps) =>
           observer.disconnect();
         }
       },
-      { threshold: 0.2 }
+      { threshold: 0.15 }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -27,7 +27,7 @@ const TextReveal = ({ children, className = "", delay = 0 }: TextRevealProps) =>
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
       <div
-        className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`transition-all duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isVisible ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"
         }`}
         style={{ transitionDelay: `${delay}ms` }}

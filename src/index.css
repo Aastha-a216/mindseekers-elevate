@@ -6,23 +6,23 @@
 
 @layer base {
   :root {
-    --background: 40 33% 99%;
-    --foreground: 220 20% 15%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 8%;
 
     --card: 0 0% 100%;
-    --card-foreground: 220 20% 15%;
+    --card-foreground: 0 0% 8%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 15%;
+    --popover-foreground: 0 0% 8%;
 
     --primary: 24 95% 53%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 96%;
-    --secondary-foreground: 220 20% 25%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 20%;
 
-    --muted: 220 15% 96%;
-    --muted-foreground: 220 10% 50%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
 
     --accent: 24 100% 97%;
     --accent-foreground: 24 95% 40%;
@@ -30,21 +30,21 @@
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 92%;
-    --input: 220 15% 92%;
+    --border: 0 0% 92%;
+    --input: 0 0% 92%;
     --ring: 24 95% 53%;
 
     --radius: 0.75rem;
 
     --gradient-warm: linear-gradient(135deg, hsl(24 95% 53%), hsl(35 95% 55%));
-    --gradient-soft: linear-gradient(180deg, hsl(40 33% 99%), hsl(220 15% 96%));
-    --gradient-hero: linear-gradient(135deg, hsl(40 33% 99%) 0%, hsl(24 100% 97%) 50%, hsl(40 33% 99%) 100%);
-    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 15% 98%));
+    --gradient-soft: linear-gradient(180deg, hsl(0 0% 100%), hsl(0 0% 97%));
+    --gradient-hero: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(24 20% 97%) 100%);
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(0 0% 98%));
 
-    --shadow-card: 0 4px 24px -4px hsl(220 20% 15% / 0.06);
-    --shadow-card-hover: 0 12px 40px -8px hsl(220 20% 15% / 0.12);
-    --shadow-elevated: 0 20px 60px -12px hsl(220 20% 15% / 0.15);
-    --shadow-soft: 0 2px 12px -2px hsl(220 20% 15% / 0.04);
+    --shadow-card: 0 1px 3px hsl(0 0% 0% / 0.04);
+    --shadow-card-hover: 0 20px 60px -15px hsl(0 0% 0% / 0.1);
+    --shadow-elevated: 0 30px 80px -20px hsl(0 0% 0% / 0.12);
+    --shadow-soft: 0 1px 2px hsl(0 0% 0% / 0.03);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -73,19 +73,43 @@
 }
 
 @layer components {
+  /* ── Container ── */
+  .container-tight {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* ── Sections ── */
+  .section-padding {
+    @apply px-6 sm:px-8 lg:px-12 py-24 sm:py-32 lg:py-40;
+  }
+
+  .section-full {
+    @apply min-h-screen flex flex-col justify-center px-6 sm:px-8 lg:px-12 py-24 sm:py-32;
+  }
+
+  /* ── Cards ── */
   .card-3d {
-    background: var(--gradient-card);
-    box-shadow: var(--shadow-card);
+    background: hsl(var(--card));
     border: 1px solid hsl(var(--border));
     border-radius: var(--radius);
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: var(--shadow-card);
   }
 
   .card-3d:hover {
     box-shadow: var(--shadow-card-hover);
-    transform: translateY(-6px);
+    transform: translateY(-8px);
   }
 
+  /* ── Glass ── */
+  .glass-card {
+    background: hsl(0 0% 100% / 0.85);
+    backdrop-filter: blur(24px) saturate(1.2);
+    border: 1px solid hsl(var(--border) / 0.5);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ── Gradient text ── */
   .gradient-text {
     background: var(--gradient-warm);
     -webkit-background-clip: text;
@@ -93,26 +117,11 @@
     background-clip: text;
   }
 
-  .section-padding {
-    @apply px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24;
-  }
-
-  .container-tight {
-    @apply max-w-7xl mx-auto;
-  }
-
-  .glass-card {
-    background: hsl(0 0% 100% / 0.7);
-    backdrop-filter: blur(20px);
-    border: 1px solid hsl(var(--border) / 0.5);
-    box-shadow: var(--shadow-soft);
-  }
-
-  /* Premium button effects */
+  /* ── Premium button ── */
   .btn-premium {
     position: relative;
     overflow: hidden;
-    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .btn-premium::after {
@@ -121,7 +130,7 @@
     inset: 0;
     background: linear-gradient(135deg, transparent 30%, hsl(0 0% 100% / 0.15) 50%, transparent 70%);
     transform: translateX(-100%);
-    transition: transform 0.6s ease;
+    transition: transform 0.7s ease;
   }
 
   .btn-premium:hover::after {
@@ -129,16 +138,16 @@
   }
 
   .btn-premium:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 30px -6px hsl(var(--primary) / 0.4);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 12px 40px -8px hsl(var(--primary) / 0.35);
   }
 
   .btn-premium:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0) scale(0.97);
     transition-duration: 0.1s;
   }
 
-  /* Link hover underline animation */
+  /* ── Link underline ── */
   .link-underline {
     position: relative;
     display: inline-block;
@@ -154,7 +163,7 @@
     background: hsl(var(--primary));
     transform: scaleX(0);
     transform-origin: right;
-    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .link-underline:hover::after {
@@ -162,21 +171,22 @@
     transform-origin: left;
   }
 
-  /* Image zoom with parallax */
+  /* ── Image reveal ── */
   .img-reveal {
     overflow: hidden;
     border-radius: var(--radius);
+    position: relative;
   }
 
   .img-reveal img {
-    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .img-reveal:hover img {
-    transform: scale(1.08);
+    transform: scale(1.06);
   }
 
-  /* Ripple effect for buttons */
+  /* ── Ripple ── */
   .ripple {
     position: relative;
     overflow: hidden;
@@ -203,54 +213,68 @@
     transition: width 0s, height 0s, opacity 0s;
   }
 
-  /* Icon hover animation */
+  /* ── Icon hover ── */
   .icon-hover {
-    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .group:hover .icon-hover {
-    transform: translateY(-2px) rotate(-5deg);
+    transform: translateX(4px);
   }
 
-  /* Form input focus animation */
+  /* ── Input animated ── */
   .input-animated {
     transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
   }
 
   .input-animated:focus {
-    box-shadow: 0 0 0 3px hsl(var(--primary) / 0.1);
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.08);
     transform: translateY(-1px);
+  }
+
+  /* ── Mask reveal ── */
+  .mask-reveal {
+    clip-path: inset(100% 0 0 0);
+    transition: clip-path 1s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .mask-reveal.revealed {
+    clip-path: inset(0 0 0 0);
+  }
+
+  /* ── Cinematic divider ── */
+  .cinematic-divider {
+    width: 60px;
+    height: 2px;
+    background: var(--gradient-warm);
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
   .animate-fade-up {
-    animation: fadeUp 0.6s ease-out forwards;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .animate-fade-in {
-    animation: fadeIn 0.5s ease-out forwards;
+    animation: fadeIn 0.6s ease-out forwards;
   }
 
   .animate-slide-in-left {
-    animation: slideInLeft 0.6s ease-out forwards;
+    animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .animate-slide-in-right {
-    animation: slideInRight 0.6s ease-out forwards;
+    animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
 
   .animate-scale-in {
-    animation: scaleIn 0.4s ease-out forwards;
-  }
-
-  .animate-count-up {
-    animation: countUp 0.8s ease-out forwards;
+    animation: scaleIn 0.5s ease-out forwards;
   }
 }
 
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(40px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -260,23 +284,23 @@
 }
 
 @keyframes slideInLeft {
-  from { opacity: 0; transform: translateX(-32px); }
+  from { opacity: 0; transform: translateX(-40px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes slideInRight {
-  from { opacity: 0; transform: translateX(32px); }
+  from { opacity: 0; transform: translateX(40px); }
   to { opacity: 1; transform: translateX(0); }
 }
 
 @keyframes scaleIn {
-  from { opacity: 0; transform: scale(0.9); }
+  from { opacity: 0; transform: scale(0.92); }
   to { opacity: 1; transform: scale(1); }
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
+  50% { transform: translateY(-12px); }
 }
 
 @keyframes marquee {
@@ -284,8 +308,13 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
 .animate-float {
-  animation: float 3s ease-in-out infinite;
+  animation: float 4s ease-in-out infinite;
 }
 
 .animate-marquee {
@@ -296,19 +325,52 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Disable heavy cursor effects on touch devices */
+/* ── Disable heavy effects on touch ── */
 @media (pointer: coarse) {
   * {
     cursor: auto !important;
   }
 }
 
-/* Smooth page transition */
+/* ── Page transition ── */
 .page-enter {
-  animation: pageEnter 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: pageEnter 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 @keyframes pageEnter {
-  from { opacity: 0; transform: translateY(16px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scrollDown {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(300%); }
+}
+
+/* ── Page transition overlay ── */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  background: hsl(var(--foreground));
+  transform: scaleY(0);
+  transform-origin: bottom;
+}
+
+.page-transition-overlay.entering {
+  animation: transitionIn 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.page-transition-overlay.exiting {
+  animation: transitionOut 0.5s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes transitionIn {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to { transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes transitionOut {
+  from { transform: scaleY(1); transform-origin: top; }
+  to { transform: scaleY(0); transform-origin: top; }
 }
