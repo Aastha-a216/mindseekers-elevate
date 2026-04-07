@@ -5,6 +5,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import TextReveal from "@/components/TextReveal";
+import ParallaxSection from "@/components/ParallaxSection";
 import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
@@ -19,119 +21,105 @@ const Contact = () => {
 
   return (
     <Layout>
-      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
-        <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
-          <ScrollReveal>
-            <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
-              Contact Us
-            </span>
-            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-6">
+      {/* Hero */}
+      <section className="relative min-h-[60vh] flex flex-col justify-end overflow-hidden pb-20">
+        <ParallaxSection speed={0.1}>
+          <div className="absolute top-[25%] right-[10%] w-[350px] h-[350px] rounded-full bg-primary/[0.03] blur-[100px]" />
+        </ParallaxSection>
+        <div className="container-tight px-6 sm:px-8 lg:px-12 relative z-10 pt-32">
+          <TextReveal>
+            <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">Contact</p>
+          </TextReveal>
+          <TextReveal delay={100}>
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-[1.05] tracking-[-0.03em] mb-8 max-w-3xl">
               Get In <span className="gradient-text">Touch</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          </TextReveal>
+          <TextReveal delay={200}>
+            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
               Have questions? We'd love to hear from you. Reach out and our team will respond promptly.
             </p>
-          </ScrollReveal>
+          </TextReveal>
         </div>
       </section>
 
-      <section className="section-padding">
+      {/* Form + Info */}
+      <section className="section-padding border-t border-border">
         <div className="container-tight max-w-5xl">
-          <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-            {/* Contact Info */}
-            <div className="lg:col-span-2 space-y-6">
-              <ScrollReveal>
-                <div className="card-3d p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
-                    <Mail className="w-5 h-5" />
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-16">
+            {/* Info */}
+            <div className="lg:col-span-2 space-y-8">
+              {[
+                { icon: Mail, title: "Email", content: "help@mindseekers.live", href: "mailto:help@mindseekers.live" },
+                { icon: Phone, title: "Phone", content: "+91 8310803817", href: "tel:+918310803817" },
+                { icon: MapPin, title: "Location", content: "India" },
+              ].map((item, i) => (
+                <ScrollReveal key={item.title} delay={i * 80}>
+                  <div className="py-6 border-b border-border">
+                    <p className="text-xs tracking-[0.15em] uppercase text-muted-foreground font-medium mb-2">{item.title}</p>
+                    {item.href ? (
+                      <a href={item.href} className="text-foreground hover:text-primary transition-colors text-lg">
+                        {item.content}
+                      </a>
+                    ) : (
+                      <p className="text-foreground text-lg">{item.content}</p>
+                    )}
                   </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Email Us</h3>
-                    <a href="mailto:help@mindseekers.live" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                      help@mindseekers.live
-                    </a>
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={100}>
-                <div className="card-3d p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
-                    <Phone className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Call Us</h3>
-                    <a href="tel:+918310803817" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                      +91 8310803817
-                    </a>
-                  </div>
-                </div>
-              </ScrollReveal>
-
-              <ScrollReveal delay={200}>
-                <div className="card-3d p-6 flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center flex-shrink-0">
-                    <MapPin className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Location</h3>
-                    <p className="text-sm text-muted-foreground">India</p>
-                  </div>
-                </div>
-              </ScrollReveal>
+                </ScrollReveal>
+              ))}
             </div>
 
-            {/* Contact Form */}
+            {/* Form */}
             <div className="lg:col-span-3">
               <ScrollReveal delay={100}>
-                <div className="card-3d p-6 sm:p-8">
-                  <h2 className="text-xl font-heading font-bold text-foreground mb-6">Send us a message</h2>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="card-3d p-8 sm:p-10">
+                  <h2 className="text-xl font-heading font-bold text-foreground mb-8">Send a message</h2>
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Name</label>
+                        <label className="text-xs tracking-[0.1em] uppercase font-medium text-muted-foreground mb-2 block">Name</label>
                         <Input
                           placeholder="Your name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                           required
-                          className="rounded-lg"
+                          className="rounded-lg input-animated h-12"
                         />
                       </div>
                       <div>
-                        <label className="text-sm font-medium text-foreground mb-1.5 block">Phone</label>
+                        <label className="text-xs tracking-[0.1em] uppercase font-medium text-muted-foreground mb-2 block">Phone</label>
                         <Input
-                          placeholder="Your phone number"
+                          placeholder="Your phone"
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           required
-                          className="rounded-lg"
+                          className="rounded-lg input-animated h-12"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
+                      <label className="text-xs tracking-[0.1em] uppercase font-medium text-muted-foreground mb-2 block">Email</label>
                       <Input
                         type="email"
                         placeholder="your@email.com"
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         required
-                        className="rounded-lg"
+                        className="rounded-lg input-animated h-12"
                       />
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-foreground mb-1.5 block">Message</label>
+                      <label className="text-xs tracking-[0.1em] uppercase font-medium text-muted-foreground mb-2 block">Message</label>
                       <Textarea
-                        placeholder="How can we help you?"
+                        placeholder="How can we help?"
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                         required
                         rows={5}
-                        className="rounded-lg resize-none"
+                        className="rounded-lg resize-none input-animated"
                       />
                     </div>
-                    <Button type="submit" className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 font-medium shadow-sm">
+                    <Button type="submit" className="btn-premium bg-primary text-primary-foreground hover:bg-primary/90 rounded-full px-8 h-12 font-medium">
                       Send Message
                       <Send className="w-4 h-4 ml-2" />
                     </Button>

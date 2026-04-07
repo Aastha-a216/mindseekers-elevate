@@ -24,8 +24,8 @@ const CustomCursor = () => {
     };
 
     const animate = () => {
-      followerPos.current.x += (mouse.current.x - followerPos.current.x) * 0.1;
-      followerPos.current.y += (mouse.current.y - followerPos.current.y) * 0.1;
+      followerPos.current.x += (mouse.current.x - followerPos.current.x) * 0.08;
+      followerPos.current.y += (mouse.current.y - followerPos.current.y) * 0.08;
       if (followerRef.current) {
         followerRef.current.style.transform = `translate(${followerPos.current.x}px, ${followerPos.current.y}px)`;
       }
@@ -43,28 +43,13 @@ const CustomCursor = () => {
         return;
       }
       const cursorAttr = interactive.getAttribute("data-cursor");
-      if (cursorAttr === "view") {
-        setCursorState("view");
-        setCursorText("View");
-      } else if (cursorAttr === "open") {
-        setCursorState("open");
-        setCursorText("Open");
-      } else if (cursorAttr === "explore") {
-        setCursorState("explore");
-        setCursorText("Explore");
-      } else if (cursorAttr === "drag") {
-        setCursorState("drag");
-        setCursorText("Drag");
-      } else if (interactive.matches(".carousel-drag")) {
-        setCursorState("drag");
-        setCursorText("Drag");
-      } else if (interactive.matches(".card-3d, .tilt-card")) {
-        setCursorState("view");
-        setCursorText("View");
-      } else {
-        setCursorState("hover");
-        setCursorText("");
-      }
+      if (cursorAttr === "view") { setCursorState("view"); setCursorText("View"); }
+      else if (cursorAttr === "open") { setCursorState("open"); setCursorText("Open"); }
+      else if (cursorAttr === "explore") { setCursorState("explore"); setCursorText("Explore"); }
+      else if (cursorAttr === "drag") { setCursorState("drag"); setCursorText("Drag"); }
+      else if (interactive.matches(".carousel-drag")) { setCursorState("drag"); setCursorText("Drag"); }
+      else if (interactive.matches(".card-3d, .tilt-card")) { setCursorState("view"); setCursorText("View"); }
+      else { setCursorState("hover"); setCursorText(""); }
     };
 
     const handleMouseOut = () => {
@@ -88,11 +73,10 @@ const CustomCursor = () => {
 
   if (isMobile) return null;
 
-  const isExpanded = cursorState === "view" || cursorState === "open" || cursorState === "explore" || cursorState === "drag";
+  const isExpanded = ["view", "open", "explore", "drag"].includes(cursorState);
 
   return (
     <>
-      {/* Inner dot */}
       <div
         ref={cursorRef}
         className="fixed top-0 left-0 z-[9999] pointer-events-none mix-blend-difference"
@@ -100,28 +84,26 @@ const CustomCursor = () => {
       >
         <div
           className={`-translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground transition-all duration-300 ease-out ${
-            isExpanded ? "w-0 h-0 opacity-0" : "w-2 h-2 opacity-100"
+            isExpanded ? "w-0 h-0 opacity-0" : "w-1.5 h-1.5 opacity-100"
           }`}
         />
       </div>
-      {/* Outer follower ring */}
       <div
         ref={followerRef}
         className="fixed top-0 left-0 z-[9998] pointer-events-none"
         style={{ willChange: "transform" }}
       >
         <div
-          className={`-translate-x-1/2 -translate-y-1/2 rounded-full border transition-all duration-500 ease-out flex items-center justify-center ${
+          className={`-translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-[600ms] ease-[cubic-bezier(0.16,1,0.3,1)] flex items-center justify-center ${
             isExpanded
-              ? "w-20 h-20 bg-primary border-primary shadow-lg"
+              ? "w-20 h-20 bg-primary/90 backdrop-blur-sm border border-primary"
               : cursorState === "hover"
-              ? "w-12 h-12 border-primary/60 bg-primary/5 backdrop-blur-sm"
-              : "w-8 h-8 border-foreground/20 bg-transparent"
+              ? "w-12 h-12 border border-foreground/15 bg-transparent"
+              : "w-7 h-7 border border-foreground/10 bg-transparent"
           }`}
-          style={isExpanded ? { boxShadow: "0 0 30px hsl(24 95% 53% / 0.3)" } : {}}
         >
           {isExpanded && (
-            <span className="text-primary-foreground text-xs font-semibold tracking-wider animate-fade-in">
+            <span className="text-primary-foreground text-[10px] font-semibold tracking-[0.15em] uppercase animate-fade-in">
               {cursorText}
             </span>
           )}
