@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, BookOpen, Users, Award, GraduationCap, Star, Clock, BarChart3 } from "lucide-react";
+import { ArrowRight, BookOpen, Users, Award, GraduationCap, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
@@ -9,6 +9,7 @@ import TiltCard from "@/components/TiltCard";
 import TextReveal from "@/components/TextReveal";
 import ParallaxSection from "@/components/ParallaxSection";
 import MagneticButton from "@/components/MagneticButton";
+import InfiniteCarousel from "@/components/InfiniteCarousel";
 import { courses } from "@/data/courses";
 
 const partnerLogos = [
@@ -40,17 +41,15 @@ const testimonials = [
   { name: "Priya Agarwal", role: "Full Stack Developer", text: "Flexible learning, industry-recognized certifications, and live doubt sessions made this the best learning experience!" },
 ];
 
-const featuredCourses = courses.slice(0, 4);
+const featuredCourses = courses.slice(0, 6);
 
 const Index = () => {
   return (
     <Layout>
       {/* Hero Section */}
       <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        {/* Floating decorative elements */}
         <ParallaxSection speed={0.15}><div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
         <ParallaxSection speed={-0.1}><div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
-        <ParallaxSection speed={0.2}><div className="absolute top-40 left-1/4 w-32 h-32 rounded-full bg-primary/3 blur-2xl" /></ParallaxSection>
 
         <div className="container-tight px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
@@ -121,10 +120,10 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Partner Logos Marquee */}
-      <section className="py-12 bg-secondary/30 overflow-hidden border-b border-border">
-        <div className="flex items-center animate-marquee" style={{ width: "max-content" }}>
-          {[...partnerLogos, ...partnerLogos].map((logo, i) => (
+      {/* Partner Logos - Infinite Carousel */}
+      <section className="py-12 bg-secondary/30 border-b border-border">
+        <InfiniteCarousel speed={0.5} pauseOnHover>
+          {partnerLogos.map((logo, i) => (
             <div key={i} className="flex-shrink-0 mx-8">
               <img
                 src={logo}
@@ -133,10 +132,10 @@ const Index = () => {
               />
             </div>
           ))}
-        </div>
+        </InfiniteCarousel>
       </section>
 
-      {/* Featured Courses */}
+      {/* Featured Courses - Infinite Carousel */}
       <section className="section-padding">
         <div className="container-tight">
           <SectionHeading
@@ -144,68 +143,63 @@ const Index = () => {
             title="Pick A Course To Get Started"
             subtitle="Industry-relevant courses designed by experts with hands-on projects and real-world applications."
           />
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {featuredCourses.map((course, i) => (
-              <ScrollReveal key={course.id} delay={i * 100}>
-                <TiltCard intensity={6}>
-                  <Link to={`/courses/${course.id}`} className="group block" data-cursor="view">
-                    <div className="card-3d overflow-hidden h-full">
-                      <div className="img-reveal">
-                        <img
-                          src={course.image}
-                          alt={course.name}
-                          className="w-full h-44 object-cover"
-                        />
-                        <div className="absolute top-3 left-3">
-                          <span className="px-2.5 py-1 rounded-full bg-card/90 backdrop-blur-sm text-xs font-medium text-foreground">
-                            {course.duration}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="p-5">
-                        <p className="text-xs font-medium text-primary mb-2">{course.categoryLabel}</p>
-                        <h3 className="font-heading font-semibold text-foreground mb-2 leading-snug group-hover:text-primary transition-colors duration-300">
-                          {course.name}
-                        </h3>
-                        <div className="flex items-center gap-1 mb-3">
-                          {Array.from({ length: 5 }).map((_, j) => (
-                            <Star key={j} className={`w-3.5 h-3.5 ${j < course.rating ? "fill-primary text-primary" : "text-border"}`} />
-                          ))}
-                          <span className="text-xs text-muted-foreground ml-1">({course.rating}.0)</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="text-lg font-bold text-foreground">₹{course.price.toLocaleString()}</span>
-                            <span className="text-sm text-muted-foreground line-through">₹{course.originalPrice.toLocaleString()}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border">
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <BookOpen className="w-3.5 h-3.5" /> {course.lessons} Lessons
-                          </span>
-                          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                            <Users className="w-3.5 h-3.5" /> {course.students} Students
-                          </span>
-                        </div>
+        <InfiniteCarousel speed={0.6} pauseOnHover className="py-4">
+          {featuredCourses.map((course) => (
+            <div key={course.id} className="flex-shrink-0 w-[320px] mx-3">
+              <TiltCard intensity={5}>
+                <Link to={`/courses/${course.id}`} className="group block" data-cursor="view">
+                  <div className="card-3d overflow-hidden h-full">
+                    <div className="img-reveal">
+                      <img src={course.image} alt={course.name} className="w-full h-44 object-cover" />
+                      <div className="absolute top-3 left-3">
+                        <span className="px-2.5 py-1 rounded-full bg-card/90 backdrop-blur-sm text-xs font-medium text-foreground">
+                          {course.duration}
+                        </span>
                       </div>
                     </div>
-                  </Link>
-                </TiltCard>
-              </ScrollReveal>
-            ))}
-          </div>
+                    <div className="p-5">
+                      <p className="text-xs font-medium text-primary mb-2">{course.categoryLabel}</p>
+                      <h3 className="font-heading font-semibold text-foreground mb-2 leading-snug group-hover:text-primary transition-colors duration-300">
+                        {course.name}
+                      </h3>
+                      <div className="flex items-center gap-1 mb-3">
+                        {Array.from({ length: 5 }).map((_, j) => (
+                          <Star key={j} className={`w-3.5 h-3.5 ${j < course.rating ? "fill-primary text-primary" : "text-border"}`} />
+                        ))}
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <span className="text-lg font-bold text-foreground">₹{course.price.toLocaleString()}</span>
+                          <span className="text-sm text-muted-foreground line-through">₹{course.originalPrice.toLocaleString()}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-4 mt-3 pt-3 border-t border-border">
+                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <BookOpen className="w-3.5 h-3.5" /> {course.lessons} Lessons
+                        </span>
+                        <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                          <Users className="w-3.5 h-3.5" /> {course.students} Students
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </TiltCard>
+            </div>
+          ))}
+        </InfiniteCarousel>
 
-          <div className="text-center mt-10">
-            <MagneticButton>
-              <Link to="/courses">
-                <Button variant="outline" className="btn-premium rounded-full px-8 font-medium border-foreground/20 hover:bg-secondary">
-                  Browse All Courses
-                  <ArrowRight className="w-4 h-4 ml-2" />
-                </Button>
-              </Link>
-            </MagneticButton>
-          </div>
+        <div className="text-center mt-10">
+          <MagneticButton>
+            <Link to="/courses">
+              <Button variant="outline" className="btn-premium rounded-full px-8 font-medium border-foreground/20 hover:bg-secondary">
+                Browse All Courses
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </Link>
+          </MagneticButton>
         </div>
       </section>
 
@@ -238,7 +232,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Testimonials - Infinite Carousel */}
       <section className="section-padding">
         <div className="container-tight">
           <SectionHeading
@@ -246,34 +240,33 @@ const Index = () => {
             title="What Our Students Have To Say"
             subtitle="We take pride in helping thousands of learners achieve their career goals through expertly designed courses."
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {testimonials.map((t, i) => (
-              <ScrollReveal key={t.name} delay={i * 100}>
-                <TiltCard intensity={4}>
-                  <div className="card-3d p-6 sm:p-8 h-full flex flex-col">
-                    <div className="flex items-center gap-1 mb-4">
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <Star key={j} className="w-4 h-4 fill-primary text-primary" />
-                      ))}
-                    </div>
-                    <p className="text-foreground/80 leading-relaxed mb-6 flex-1 italic">
-                      "{t.text}"
-                    </p>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-sm">
-                        {t.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                </TiltCard>
-              </ScrollReveal>
-            ))}
-          </div>
         </div>
+
+        <InfiniteCarousel speed={0.4} direction="right" pauseOnHover className="py-4">
+          {testimonials.map((t) => (
+            <div key={t.name} className="flex-shrink-0 w-[400px] mx-3">
+              <div className="card-3d p-6 sm:p-8 h-full flex flex-col">
+                <div className="flex items-center gap-1 mb-4">
+                  {Array.from({ length: 5 }).map((_, j) => (
+                    <Star key={j} className="w-4 h-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <p className="text-foreground/80 leading-relaxed mb-6 flex-1 italic">
+                  "{t.text}"
+                </p>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-sm">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
+                    <p className="text-xs text-muted-foreground">{t.role}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </InfiniteCarousel>
       </section>
 
       {/* CTA */}
