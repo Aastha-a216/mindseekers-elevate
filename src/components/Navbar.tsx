@@ -20,46 +20,74 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-500 ${
+        className={`fixed top-0 left-0 right-0 z-[110] transition-all duration-300 ${
           isScrolled && !isMenuOpen
-            ? "glass-card py-4"
-            : "bg-transparent py-6"
+            ? "glass-card py-3 shadow-sm"
+            : "bg-transparent py-5"
         }`}
       >
-        <div className="container-tight flex items-center justify-between px-6 sm:px-8 lg:px-12">
-          <Link to="/" className="relative z-[111]">
-            <span className="text-lg font-heading font-bold tracking-tight text-foreground">
+        <div className="container-tight flex items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link to="/" className="flex items-center gap-2 relative z-[111]">
+            <span className={`text-xl font-heading font-bold tracking-tight transition-colors duration-300 ${
+              isMenuOpen ? "text-foreground" : "text-foreground"
+            }`}>
               Mind<span className="gradient-text">Seekers</span>
             </span>
           </Link>
 
-          <div className="flex items-center gap-6 relative z-[111]">
+          {/* Desktop nav links */}
+          <div className="hidden lg:flex items-center gap-1">
+            {["Home", "About Us", "Courses", "Placements", "Testimonials"].map((label) => {
+              const path = label === "Home" ? "/" : label === "About Us" ? "/about" : `/${label.toLowerCase()}`;
+              return (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
+                    location.pathname === path
+                      ? "text-primary"
+                      : "text-foreground/70 hover:text-foreground hover:bg-secondary/50"
+                  }`}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </div>
+
+          <div className="flex items-center gap-4 relative z-[111]">
+            {/* Enroll CTA - desktop only */}
             <a
               href="https://form.qfixonline.com/mind"
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:block text-xs font-medium tracking-[0.1em] uppercase text-foreground/60 hover:text-foreground transition-colors link-underline"
+              className="hidden lg:block"
             >
-              Enroll Now
+              <span className="px-6 py-2.5 rounded-full bg-primary text-primary-foreground font-medium text-sm hover:bg-primary/90 transition-colors shadow-sm">
+                Enroll Now
+              </span>
             </a>
 
+            {/* Hamburger / Close toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="flex items-center gap-3 group"
+              className="relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-secondary/50 transition-colors"
               aria-label="Toggle menu"
             >
-              <span className="text-xs font-medium tracking-[0.1em] uppercase text-foreground/60 hidden sm:block">
-                {isMenuOpen ? "Close" : "Menu"}
-              </span>
-              <div className="w-8 h-5 relative flex flex-col justify-center items-center">
+              <div className="w-6 h-5 relative flex flex-col justify-center items-center">
                 <span
-                  className={`block w-full h-[1.5px] bg-foreground rounded-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] absolute ${
-                    isMenuOpen ? "rotate-45 top-[9px]" : "top-[4px]"
+                  className={`block w-6 h-[2px] bg-foreground rounded-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] absolute ${
+                    isMenuOpen ? "rotate-45 top-[9px]" : "top-[3px]"
                   }`}
                 />
                 <span
-                  className={`block w-full h-[1.5px] bg-foreground rounded-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] absolute ${
-                    isMenuOpen ? "-rotate-45 top-[9px]" : "top-[14px]"
+                  className={`block w-4 h-[2px] bg-foreground rounded-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] absolute top-[9px] ${
+                    isMenuOpen ? "opacity-0 scale-x-0" : "opacity-100"
+                  }`}
+                />
+                <span
+                  className={`block w-6 h-[2px] bg-foreground rounded-full transition-all duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] absolute ${
+                    isMenuOpen ? "-rotate-45 top-[9px]" : "top-[15px]"
                   }`}
                 />
               </div>

@@ -1,5 +1,3 @@
-import ScrollReveal from "@/components/ScrollReveal";
-
 interface SectionHeadingProps {
   badge?: string;
   title: string;
@@ -9,23 +7,19 @@ interface SectionHeadingProps {
 
 const SectionHeading = ({ badge, title, subtitle, center = true }: SectionHeadingProps) => {
   return (
-    <div className={`mb-16 ${center ? "text-center max-w-2xl mx-auto" : ""}`}>
+    <div className={`mb-12 ${center ? "text-center" : ""}`}>
       {badge && (
-        <ScrollReveal>
-          <p className="text-xs tracking-[0.2em] uppercase text-muted-foreground font-medium mb-4">
-            {badge}
-          </p>
-        </ScrollReveal>
+        <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
+          {badge}
+        </span>
       )}
-      <ScrollReveal delay={80}>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-heading font-bold text-foreground tracking-[-0.02em] mb-4">
-          {title}
-        </h2>
-      </ScrollReveal>
+      <h2 className="text-3xl sm:text-4xl font-heading font-bold text-foreground leading-tight">
+        {title}
+      </h2>
       {subtitle && (
-        <ScrollReveal delay={150}>
-          <p className="text-muted-foreground leading-relaxed text-lg">{subtitle}</p>
-        </ScrollReveal>
+        <p className="mt-4 text-muted-foreground max-w-2xl leading-relaxed text-base sm:text-lg mx-auto">
+          {subtitle}
+        </p>
       )}
     </div>
   );

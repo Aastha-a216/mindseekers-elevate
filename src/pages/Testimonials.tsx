@@ -1,9 +1,7 @@
 import { Star } from "lucide-react";
 import Layout from "@/components/Layout";
+import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
-import TextReveal from "@/components/TextReveal";
-import ParallaxSection from "@/components/ParallaxSection";
-import TiltCard from "@/components/TiltCard";
 
 const testimonials = [
   { name: "Rohan Gupta", role: "Senior Product and Compliance Associate", text: "I landed my dream job after completing MindSeekers Full Stack Development course. Highly recommended!", rating: 5 },
@@ -19,53 +17,44 @@ const testimonials = [
 const Testimonials = () => {
   return (
     <Layout>
-      {/* Hero */}
-      <section className="relative min-h-[70vh] flex flex-col justify-end overflow-hidden pb-20">
-        <ParallaxSection speed={0.1}>
-          <div className="absolute top-[20%] right-[15%] w-[400px] h-[400px] rounded-full bg-primary/[0.03] blur-[120px]" />
-        </ParallaxSection>
-        <div className="container-tight px-6 sm:px-8 lg:px-12 relative z-10 pt-32">
-          <TextReveal>
-            <p className="text-xs font-medium tracking-[0.2em] uppercase text-muted-foreground mb-6">Testimonials</p>
-          </TextReveal>
-          <TextReveal delay={100}>
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-heading font-bold text-foreground leading-[1.05] tracking-[-0.03em] mb-8 max-w-4xl">
+      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
+        <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal>
+            <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
+              Testimonials
+            </span>
+            <h1 className="text-4xl sm:text-5xl font-heading font-bold text-foreground mb-6">
               What Our Students <span className="gradient-text">Have To Say</span>
             </h1>
-          </TextReveal>
-          <TextReveal delay={200}>
-            <p className="text-lg text-muted-foreground max-w-xl leading-relaxed">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               At MindSeekers, we take pride in helping thousands of learners achieve their career goals through our expertly designed courses.
             </p>
-          </TextReveal>
+          </ScrollReveal>
         </div>
       </section>
 
-      {/* Grid */}
-      <section className="section-padding border-t border-border">
+      <section className="section-padding">
         <div className="container-tight">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {testimonials.map((t, i) => (
-              <ScrollReveal key={t.name} delay={(i % 2) * 80}>
-                <TiltCard intensity={3}>
-                  <div className="card-3d p-8 h-full flex flex-col">
-                    <div className="flex items-center gap-1 mb-6">
-                      {Array.from({ length: 5 }).map((_, j) => (
-                        <Star key={j} className={`w-3.5 h-3.5 ${j < t.rating ? "fill-primary text-primary" : "text-border"}`} />
-                      ))}
+              <ScrollReveal key={t.name} delay={(i % 2) * 100}>
+                <div className="card-3d p-6 sm:p-8 h-full flex flex-col">
+                  <div className="flex items-center gap-1 mb-4">
+                    {Array.from({ length: 5 }).map((_, j) => (
+                      <Star key={j} className={`w-4 h-4 ${j < t.rating ? "fill-primary text-primary" : "text-border"}`} />
+                    ))}
+                  </div>
+                  <p className="text-foreground/80 leading-relaxed mb-6 flex-1 italic">"{t.text}"</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary font-heading font-bold text-sm">
+                      {t.name.charAt(0)}
                     </div>
-                    <p className="text-foreground/70 leading-relaxed mb-8 flex-1 text-[15px]">"{t.text}"</p>
-                    <div className="flex items-center gap-3 pt-6 border-t border-border">
-                      <div className="w-10 h-10 rounded-full bg-primary/8 flex items-center justify-center text-primary font-heading font-bold text-sm">
-                        {t.name.charAt(0)}
-                      </div>
-                      <div>
-                        <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
-                        <p className="text-xs text-muted-foreground">{t.role}</p>
-                      </div>
+                    <div>
+                      <p className="font-heading font-semibold text-sm text-foreground">{t.name}</p>
+                      <p className="text-xs text-muted-foreground">{t.role}</p>
                     </div>
                   </div>
-                </TiltCard>
+                </div>
               </ScrollReveal>
             ))}
           </div>
