@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import FullScreenMenu from "@/components/FullScreenMenu";
+import ThemeToggle from "@/components/ThemeToggle";
+import logo from "@/assets/logo.png";
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,17 +30,12 @@ const Navbar = () => {
       >
         <div className="container-tight flex items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2 relative z-[111]">
-            <span className={`text-xl font-heading font-bold tracking-tight transition-colors duration-300 ${
-              isMenuOpen ? "text-foreground" : "text-foreground"
-            }`}>
-              Mind<span className="gradient-text">Seekers</span>
-            </span>
+            <img src={logo} alt="MindSeekers" className="h-7 sm:h-8 w-auto object-contain" />
           </Link>
 
-          {/* Desktop nav links */}
           <div className="hidden lg:flex items-center gap-1">
-            {["Home", "About Us", "Courses", "Placements", "Testimonials"].map((label) => {
-              const path = label === "Home" ? "/" : label === "About Us" ? "/about" : `/${label.toLowerCase()}`;
+            {["Home", "About Us", "Courses", "Placements", "Testimonials", "Insights"].map((label) => {
+              const path = label === "Home" ? "/" : label === "About Us" ? "/about" : label === "Insights" ? "/posts" : `/${label.toLowerCase()}`;
               return (
                 <Link
                   key={path}
@@ -55,8 +52,9 @@ const Navbar = () => {
             })}
           </div>
 
-          <div className="flex items-center gap-4 relative z-[111]">
-            {/* Enroll CTA - desktop only */}
+          <div className="flex items-center gap-2 relative z-[111]">
+            <ThemeToggle />
+
             <a
               href="https://form.qfixonline.com/mind"
               target="_blank"
@@ -68,7 +66,6 @@ const Navbar = () => {
               </span>
             </a>
 
-            {/* Hamburger / Close toggle */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-secondary/50 transition-colors"

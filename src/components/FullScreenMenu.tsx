@@ -7,6 +7,7 @@ const menuLinks = [
   { label: "Courses", path: "/courses" },
   { label: "Placements", path: "/placements" },
   { label: "Testimonials", path: "/testimonials" },
+  { label: "Insights", path: "/posts" },
   { label: "FAQ", path: "/faq" },
   { label: "Contact", path: "/contact" },
 ];
@@ -40,14 +41,12 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
         isOpen ? "pointer-events-auto" : "pointer-events-none"
       }`}
     >
-      {/* Backdrop */}
       <div
         className={`absolute inset-0 bg-background/95 backdrop-blur-2xl transition-opacity duration-700 ${
           isOpen ? "opacity-100" : "opacity-0"
         }`}
       />
 
-      {/* Animated gradient background */}
       <div
         className={`absolute inset-0 transition-opacity duration-1000 delay-200 ${
           isOpen ? "opacity-100" : "opacity-0"
@@ -57,7 +56,6 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
         <div className="absolute bottom-1/4 left-1/4 w-72 h-72 rounded-full bg-primary/3 blur-[100px] animate-float" style={{ animationDelay: "1.5s" }} />
       </div>
 
-      {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-center items-center px-6">
         <nav className="flex flex-col items-center gap-2 sm:gap-3">
           {menuLinks.map((link, i) => (
@@ -94,7 +92,6 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
           ))}
         </nav>
 
-        {/* Bottom info */}
         <div
           className={`absolute bottom-8 left-6 right-6 flex items-center justify-between text-sm text-muted-foreground transition-all duration-500 ${
             isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"

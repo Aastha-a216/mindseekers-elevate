@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, Clock, Users, BookOpen, Star, CheckCircle, Award } from "lucide-react";
+import { ArrowLeft, Clock, Users, BookOpen, Star, CheckCircle, Award, Calendar, Phone, Mail, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -21,6 +21,8 @@ const CourseDetail = () => {
       </Layout>
     );
   }
+
+  const syllabusIcons = [Layers, BookOpen, Award, Star, CheckCircle, Clock, Users, Calendar, Layers, BookOpen, Award, Star, CheckCircle, Clock, Users];
 
   return (
     <Layout>
@@ -59,39 +61,45 @@ const CourseDetail = () => {
         </div>
       </section>
 
-      {/* Content */}
+      {/* Syllabus as visual blocks */}
       <section className="section-padding">
         <div className="container-tight">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Syllabus */}
-            <div className="lg:col-span-2 space-y-8">
+            <div className="lg:col-span-2 space-y-10">
               <ScrollReveal>
-                <div className="card-3d p-6 sm:p-8">
-                  <h2 className="text-xl font-heading font-bold text-foreground mb-6">Course Syllabus</h2>
-                  <div className="space-y-3">
-                    {course.syllabus.map((item, i) => (
-                      <div key={i} className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors">
-                        <span className="flex-shrink-0 w-7 h-7 rounded-full bg-primary/10 text-primary text-xs font-bold flex items-center justify-center">
-                          {i + 1}
-                        </span>
-                        <span className="text-sm text-foreground/80">{item}</span>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Course Syllabus</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {course.syllabus.map((item, i) => {
+                    const Icon = syllabusIcons[i % syllabusIcons.length];
+                    return (
+                      <div
+                        key={i}
+                        className="card-3d p-5 flex items-start gap-4 group"
+                      >
+                        <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-accent text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                          <Icon className="w-5 h-5" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground font-medium mb-1">Module {i + 1}</p>
+                          <p className="text-sm font-semibold text-foreground">{item}</p>
+                        </div>
                       </div>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
               </ScrollReveal>
 
               <ScrollReveal delay={100}>
-                <div className="card-3d p-6 sm:p-8">
-                  <h2 className="text-xl font-heading font-bold text-foreground mb-6">Hands-on Projects</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                    {course.projects.map((project) => (
-                      <div key={project} className="flex items-center gap-3 p-3 rounded-lg bg-accent/50">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0" />
-                        <span className="text-sm text-foreground/80">{project}</span>
+                <h2 className="text-2xl font-heading font-bold text-foreground mb-6">Hands-on Projects</h2>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {course.projects.map((project) => (
+                    <div key={project} className="card-3d p-5 flex items-center gap-4 group">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
+                        <CheckCircle className="w-5 h-5" />
                       </div>
-                    ))}
-                  </div>
+                      <span className="text-sm font-medium text-foreground">{project}</span>
+                    </div>
+                  ))}
                 </div>
               </ScrollReveal>
             </div>
@@ -111,7 +119,7 @@ const CourseDetail = () => {
                   </div>
 
                   <a href="https://form.qfixonline.com/mind" target="_blank" rel="noopener noreferrer" className="block mb-4">
-                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 font-semibold shadow-lg">
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full h-12 font-semibold shadow-lg btn-premium">
                       Enroll Now
                     </Button>
                   </a>
@@ -133,6 +141,57 @@ const CourseDetail = () => {
                 </div>
               </ScrollReveal>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Blocks */}
+      <section className="section-padding" style={{ background: "var(--gradient-soft)" }}>
+        <div className="container-tight">
+          <ScrollReveal>
+            <h2 className="text-2xl sm:text-3xl font-heading font-bold text-foreground text-center mb-10">
+              Ready to get started?
+            </h2>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: Calendar,
+                title: "Book Demo Class",
+                desc: "Experience a free demo class before you enroll.",
+                href: "https://form.qfixonline.com/mind",
+                btnLabel: "Book Now",
+              },
+              {
+                icon: Phone,
+                title: "Request a Call",
+                desc: "Our counselor will call you to discuss your goals.",
+                href: "tel:+918310803817",
+                btnLabel: "Call Us",
+              },
+              {
+                icon: Mail,
+                title: "Mail Us",
+                desc: "Send us your queries and we'll respond within 24 hours.",
+                href: "mailto:help@mindseekers.live",
+                btnLabel: "Send Email",
+              },
+            ].map((cta) => (
+              <ScrollReveal key={cta.title}>
+                <div className="card-3d p-8 text-center h-full flex flex-col items-center group">
+                  <div className="w-14 h-14 rounded-2xl bg-accent text-primary flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
+                    <cta.icon className="w-7 h-7" />
+                  </div>
+                  <h3 className="text-lg font-heading font-bold text-foreground mb-2">{cta.title}</h3>
+                  <p className="text-sm text-muted-foreground mb-6 flex-1">{cta.desc}</p>
+                  <a href={cta.href} target="_blank" rel="noopener noreferrer">
+                    <Button className="rounded-full px-6 bg-primary text-primary-foreground hover:bg-primary/90 btn-premium font-semibold">
+                      {cta.btnLabel}
+                    </Button>
+                  </a>
+                </div>
+              </ScrollReveal>
+            ))}
           </div>
         </div>
       </section>
