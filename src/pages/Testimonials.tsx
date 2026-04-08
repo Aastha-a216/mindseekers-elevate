@@ -1,6 +1,6 @@
-import { Star } from "lucide-react";
+import { Star, Play } from "lucide-react";
+import { useState } from "react";
 import Layout from "@/components/Layout";
-import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 
 const testimonials = [
@@ -15,6 +15,8 @@ const testimonials = [
 ];
 
 const Testimonials = () => {
+  const [playing, setPlaying] = useState(false);
+
   return (
     <Layout>
       <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
@@ -33,7 +35,46 @@ const Testimonials = () => {
         </div>
       </section>
 
+      {/* Video Section */}
       <section className="section-padding">
+        <div className="container-tight">
+          <ScrollReveal>
+            <div className="max-w-4xl mx-auto">
+              <div className="card-3d overflow-hidden group">
+                <div className="relative aspect-video bg-foreground/5">
+                  {playing ? (
+                    <video
+                      src="/videos/review.mp4"
+                      className="w-full h-full object-cover"
+                      controls
+                      autoPlay
+                    />
+                  ) : (
+                    <button
+                      onClick={() => setPlaying(true)}
+                      className="w-full h-full flex items-center justify-center bg-foreground/5 relative"
+                    >
+                      <video
+                        src="/videos/review.mp4"
+                        className="w-full h-full object-cover absolute inset-0"
+                        muted
+                        preload="metadata"
+                      />
+                      <div className="relative z-10 w-20 h-20 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110">
+                        <Play className="w-8 h-8 ml-1" />
+                      </div>
+                      <div className="absolute inset-0 bg-foreground/20 transition-opacity duration-300 group-hover:opacity-0" />
+                    </button>
+                  )}
+                </div>
+              </div>
+              <p className="text-center text-sm text-muted-foreground mt-4">Hear from our students about their MindSeekers experience</p>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      <section className="section-padding pt-0">
         <div className="container-tight">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {testimonials.map((t, i) => (

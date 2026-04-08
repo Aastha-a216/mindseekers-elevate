@@ -48,8 +48,12 @@ const Index = () => {
     <Layout>
       {/* Hero Section */}
       <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-24 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
-        <ParallaxSection speed={0.15}><div className="absolute top-20 right-10 w-64 h-64 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
-        <ParallaxSection speed={-0.1}><div className="absolute bottom-10 left-10 w-48 h-48 rounded-full bg-primary/5 blur-3xl" /></ParallaxSection>
+        {/* Subtle background blobs */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <ParallaxSection speed={0.15}><div className="absolute top-20 right-10 w-72 h-72 rounded-full bg-primary/5 blur-[80px]" /></ParallaxSection>
+          <ParallaxSection speed={-0.1}><div className="absolute bottom-10 left-10 w-56 h-56 rounded-full bg-primary/5 blur-[80px]" /></ParallaxSection>
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full bg-primary/3 blur-[120px] animate-float" />
+        </div>
 
         <div className="container-tight px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center">
@@ -120,7 +124,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Partner Logos - Infinite Carousel */}
+      {/* Partner Logos - Original colors */}
       <section className="py-12 bg-secondary/30 border-b border-border">
         <InfiniteCarousel speed={0.5} pauseOnHover>
           {partnerLogos.map((logo, i) => (
@@ -128,14 +132,14 @@ const Index = () => {
               <img
                 src={logo}
                 alt="Partner"
-                className="h-10 sm:h-12 object-contain opacity-50 hover:opacity-100 transition-all duration-500 grayscale hover:grayscale-0 hover:scale-110"
+                className="h-10 sm:h-12 object-contain opacity-70 hover:opacity-100 transition-all duration-500 hover:scale-110"
               />
             </div>
           ))}
         </InfiniteCarousel>
       </section>
 
-      {/* Featured Courses - Infinite Carousel */}
+      {/* Featured Courses */}
       <section className="section-padding">
         <div className="container-tight">
           <SectionHeading
@@ -149,7 +153,7 @@ const Index = () => {
           {featuredCourses.map((course) => (
             <div key={course.id} className="flex-shrink-0 w-[320px] mx-3">
               <TiltCard intensity={5}>
-                <Link to={`/courses/${course.id}`} className="group block" data-cursor="view">
+                <Link to={`/courses/${course.id}`} className="group block">
                   <div className="card-3d overflow-hidden h-full">
                     <div className="img-reveal">
                       <img src={course.image} alt={course.name} className="w-full h-44 object-cover" />
@@ -232,7 +236,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Testimonials - Infinite Carousel */}
+      {/* Testimonials */}
       <section className="section-padding">
         <div className="container-tight">
           <SectionHeading

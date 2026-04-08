@@ -3,8 +3,15 @@ import { Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="bg-foreground text-primary-foreground">
-      <div className="container-tight section-padding pb-8">
+    <footer className="relative bg-foreground text-primary-foreground overflow-hidden">
+      {/* Large background branding text */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span className="text-[10rem] sm:text-[14rem] lg:text-[18rem] font-heading font-bold text-primary-foreground/[0.04] whitespace-nowrap tracking-tighter">
+          MindSeekers
+        </span>
+      </div>
+
+      <div className="relative z-10 container-tight section-padding pb-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
           <div>
             <h3 className="text-lg font-heading font-bold mb-4">
@@ -28,6 +35,7 @@ const Footer = () => {
                 { label: "Testimonials", path: "/testimonials" },
                 { label: "FAQ", path: "/faq" },
                 { label: "Contact", path: "/contact" },
+                { label: "Insights", path: "/posts" },
               ].map((link) => (
                 <Link
                   key={link.path}
