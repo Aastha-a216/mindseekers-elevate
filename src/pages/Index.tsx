@@ -136,8 +136,9 @@ const Index = () => {
       </section>
 
       {/* Featured Courses */}
-      <section className="section-padding">
-        <div className="container-tight">
+      <section className="section-padding relative overflow-hidden">
+        <FloatingElements variant="section" />
+        <div className="container-tight relative z-10">
           <SectionHeading
             badge="Popular Courses"
             title="Pick A Course To Get Started"

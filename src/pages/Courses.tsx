@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import SectionHeading from "@/components/SectionHeading";
 import ScrollReveal from "@/components/ScrollReveal";
 import TiltCard from "@/components/TiltCard";
+import FloatingElements from "@/components/FloatingElements";
 import { courses, categories } from "@/data/courses";
 
 const Courses = () => {
@@ -17,7 +18,8 @@ const Courses = () => {
 
   return (
     <Layout>
-      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
+      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+        <FloatingElements variant="hero" />
         <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
           <ScrollReveal>
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
