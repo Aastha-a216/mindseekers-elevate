@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="relative bg-foreground text-primary-foreground overflow-hidden">
       {/* Large background branding text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
-        <span className="text-[10rem] sm:text-[14rem] lg:text-[18rem] font-heading font-bold text-primary-foreground/[0.04] whitespace-nowrap tracking-tighter">
+        <span className="text-[6rem] sm:text-[8rem] lg:text-[10rem] font-heading font-bold text-primary-foreground/[0.07] whitespace-nowrap tracking-tighter">
           MindSeekers
         </span>
       </div>

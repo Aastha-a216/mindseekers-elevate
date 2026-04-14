@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
 import { useToast } from "@/hooks/use-toast";
+import { socials } from "@/components/SocialSidebar";
+import logo from "@/assets/logo.png";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -19,8 +21,18 @@ const Contact = () => {
 
   return (
     <Layout>
-      <section className="pt-28 pb-16 sm:pt-36 sm:pb-20" style={{ background: "var(--gradient-hero)" }}>
-        <div className="container-tight px-4 sm:px-6 lg:px-8 text-center">
+      <section className="relative pt-28 pb-16 sm:pt-36 sm:pb-20 overflow-hidden" style={{ background: "var(--gradient-hero)" }}>
+        {/* Animated background logo */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
+          <img
+            src={logo}
+            alt=""
+            className="w-64 sm:w-80 opacity-[0.04] dark:opacity-[0.06] animate-float mix-blend-multiply dark:mix-blend-screen"
+            style={{ animationDuration: "6s" }}
+          />
+        </div>
+
+        <div className="container-tight px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <ScrollReveal>
             <span className="inline-block px-4 py-1.5 rounded-full bg-accent text-accent-foreground text-xs font-semibold uppercase tracking-wider mb-4">
               Contact Us
@@ -76,6 +88,27 @@ const Contact = () => {
                   <div>
                     <h3 className="font-heading font-semibold text-foreground text-sm mb-1">Location</h3>
                     <p className="text-sm text-muted-foreground">India</p>
+                  </div>
+                </div>
+              </ScrollReveal>
+
+              {/* Social Links */}
+              <ScrollReveal delay={300}>
+                <div className="card-3d p-6">
+                  <h3 className="font-heading font-semibold text-foreground text-sm mb-4">Follow Us</h3>
+                  <div className="flex items-center gap-3">
+                    {socials.map((s) => (
+                      <a
+                        key={s.label}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={s.label}
+                        className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary hover:shadow-[0_0_12px_hsl(var(--primary)/0.3)] hover:scale-110 transition-all duration-300"
+                      >
+                        <s.icon className="w-4 h-4" />
+                      </a>
+                    ))}
                   </div>
                 </div>
               </ScrollReveal>
