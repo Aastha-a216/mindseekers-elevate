@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin } from "lucide-react";
+import FloatingElements from "@/components/FloatingElements";
 
 const Footer = () => {
   return (
     <footer className="relative bg-foreground text-primary-foreground overflow-hidden">
+      <FloatingElements variant="footer" />
       {/* Large background branding text */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <span className="text-[6rem] sm:text-[8rem] lg:text-[10rem] font-heading font-bold text-primary-foreground/[0.07] whitespace-nowrap tracking-tighter">

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Layout from "@/components/Layout";
 import ScrollReveal from "@/components/ScrollReveal";
+import FloatingElements from "@/components/FloatingElements";
 import { useToast } from "@/hooks/use-toast";
 import { socials } from "@/components/SocialSidebar";
 import logo from "@/assets/logo.png";
@@ -47,8 +48,9 @@ const Contact = () => {
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container-tight max-w-5xl">
+      <section className="section-padding relative overflow-hidden">
+        <FloatingElements variant="section" />
+        <div className="container-tight max-w-5xl relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
             {/* Contact Info */}
             <div className="lg:col-span-2 space-y-6">
