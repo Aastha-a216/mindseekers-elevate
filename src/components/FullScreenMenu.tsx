@@ -57,7 +57,7 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
       </div>
 
       <div className="relative z-10 h-full flex flex-col justify-center items-center px-6">
-        <nav className="flex flex-col items-center gap-2 sm:gap-3">
+        <nav className="flex flex-col items-center gap-1 sm:gap-2">
           {menuLinks.map((link, i) => (
             <div
               key={link.path}
@@ -73,7 +73,7 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
             >
               <Link
                 to={link.path}
-                className={`group relative block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-heading font-bold tracking-tight transition-colors duration-300 ${
+                className={`group relative block text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-heading font-bold tracking-tight transition-colors duration-300 ${
                   location.pathname === link.path
                     ? "gradient-text"
                     : "text-foreground/40 hover:text-foreground"
@@ -98,7 +98,7 @@ const FullScreenMenu = ({ isOpen, onClose }: FullScreenMenuProps) => {
           }`}
           style={{ transitionDelay: isOpen ? "700ms" : "0ms" }}
         >
-          <span>info@mindseekers.live</span>
+          <span>help@mindseekers.live</span>
           <a
             href="https://form.qfixonline.com/mind"
             target="_blank"
