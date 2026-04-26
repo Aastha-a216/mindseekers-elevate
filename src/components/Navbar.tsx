@@ -30,7 +30,7 @@ const Navbar = () => {
       >
         <div className="container-tight flex items-center justify-between px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2 relative z-[111]">
-            <img src={logo} alt="MindSeekers" className="h-7 sm:h-8 w-auto object-contain mix-blend-multiply dark:mix-blend-screen dark:brightness-150" />
+            <img src={logo} alt="MindSeekers" className="h-8 sm:h-10 w-auto object-contain" />
           </Link>
 
           <div className="hidden lg:flex items-center gap-1">
@@ -99,3 +99,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
